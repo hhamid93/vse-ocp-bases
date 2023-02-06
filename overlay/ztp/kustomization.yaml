@@ -1,0 +1,19 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/ztp
+  # Use the example manifests to create SiteConfig.yaml according to your cluster requirement.
+  #- SiteConfig-example-sno.yaml
+  #- SiteConfig-example-3node.yaml
+  #- SiteConfig-example-standard.yaml
+
+patches:
+  - target:
+     kind: Secret
+    path: ./patches/bmc-secrets-patch.yaml      
+  - target:
+     kind: SealedSecret
+    path: ./patches/pullsecret-sealed-patch.yaml
+
